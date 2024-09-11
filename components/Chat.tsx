@@ -15,11 +15,10 @@ export default function ClientComponent({
   const ref = useRef<ComponentRef<typeof Messages> | null>(null);
   
   return (
-    <div
-      className={
-        "relative grow flex flex-col mx-auto w-full overflow-hidden h-[0px]"
-      }
-    >
+    <div className="relative grow flex flex-col mx-auto w-full overflow-hidden h-[0px] bg-gray-100">
+      <div className="bg-gray-200 p-4 text-center font-semibold">
+        AI Assistant
+      </div>
       <VoiceProvider
         auth={{ type: "accessToken", value: accessToken }}
         onMessage={() => {

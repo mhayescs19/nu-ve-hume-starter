@@ -14,53 +14,42 @@ const Messages = forwardRef<
   return (
     <motion.div
       layoutScroll
-      className={"grow rounded-md overflow-auto p-4"}
+      className="grow rounded-md overflow-auto p-4 bg-gray-100"
       ref={ref}
     >
       <motion.div
-        className={"max-w-2xl mx-auto w-full flex flex-col gap-4 pb-24"}
+        className="max-w-2xl mx-auto w-full flex flex-col gap-2 pb-24"
       >
-        <AnimatePresence mode={"popLayout"}>
+        <AnimatePresence mode="popLayout">
           {messages.map((msg, index) => {
             if (
               msg.type === "user_message" ||
               msg.type === "assistant_message"
             ) {
+              const isUser = msg.type === "user_message";
               return (
                 <motion.div
                   key={msg.type + index}
                   className={cn(
-                    "w-[80%]",
-                    "bg-card",
-                    "border border-border rounded",
-                    msg.type === "user_message" ? "ml-auto" : ""
+                    "max-w-[70%]",
+                    isUser ? "ml-auto" : "mr-auto"
                   )}
-                  initial={{
-                    opacity: 0,
-                    y: 10,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  exit={{
-                    opacity: 0,
-                    y: 0,
-                  }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 0 }}
                 >
                   <div
                     className={cn(
-                      "text-xs capitalize font-medium leading-none opacity-50 pt-4 px-3"
+                      "rounded-2xl px-4 py-2",
+                      isUser ? "bg-blue-500 text-white" : "bg-white text-black"
                     )}
                   >
-                    {msg.message.role}
+                    <div className="text-sm">{msg.message.content}</div>
                   </div>
-                  <div className={"pb-3 px-3"}>{msg.message.content}</div>
                   <Expressions values={msg.models.prosody?.scores ?? {}} />
                 </motion.div>
               );
             }
-
             return null;
           })}
         </AnimatePresence>
