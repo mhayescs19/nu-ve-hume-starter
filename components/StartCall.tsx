@@ -1,7 +1,7 @@
 import { useVoice } from "@humeai/voice-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "./ui/button";
-import { Phone } from "lucide-react";
+import { Heart } from "lucide-react";
 
 export default function StartCall() {
   const { status, connect } = useVoice();
@@ -38,13 +38,13 @@ export default function StartCall() {
                 }}
               >
                 <span>
-                  <Phone
+                  <Heart
                     className={"size-4 opacity-50"}
                     strokeWidth={2}
                     stroke={"currentColor"}
                   />
                 </span>
-                <span>Start Call</span>
+                <span>Dr. Luna</span>
               </Button>
             </motion.div>
           </AnimatePresence>
