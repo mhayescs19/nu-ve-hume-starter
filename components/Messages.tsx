@@ -46,7 +46,7 @@ const Messages = forwardRef<
                   >
                     <div className="text-sm">{msg.message.content}</div>
                   </div>
-                  <Expressions values={msg.models.prosody?.scores ?? {}} />
+                  {/*<Expressions values={msg.models.prosody?.scores ?? {}} />*/}
                 </motion.div>
               );
             }
