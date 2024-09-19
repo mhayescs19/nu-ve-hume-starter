@@ -1,4 +1,4 @@
-import 'server-only';
+import 'server-only'; // disables excution of code on client side
 import { fetchAccessToken } from "@humeai/voice";
 
 export const getHumeAccessToken = async () => {
