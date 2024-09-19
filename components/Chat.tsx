@@ -8,17 +8,19 @@ import { ComponentRef, useRef } from "react";
 
 export default function ClientComponent({
   accessToken,
+  configId
 }: {
   accessToken: string;
+  configId: string;
 }) {
   const timeout = useRef<number | null>(null);
   const ref = useRef<ComponentRef<typeof Messages> | null>(null);
   
   return (
     <div className="relative grow flex flex-col mx-auto w-full overflow-hidden h-[0px] bg-gray-100">
-      <div className="bg-gray-200 p-4 text-center font-semibold">
+      {/*<div className="bg-gray-200 p-4 text-center font-semibold">
         AI Assistant
-      </div>
+      </div>*/}
       <VoiceProvider
         auth={{ type: "accessToken", value: accessToken }}
         onMessage={() => {
@@ -37,6 +39,7 @@ export default function ClientComponent({
             }
           }, 200);
         }}
+        configId={configId}
       >
         <Messages ref={ref} />
         <Controls />
