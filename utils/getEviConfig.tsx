@@ -1,5 +1,3 @@
-import { HumeClient } from 'hume';
-
 export const getEviConfig = async () => {
     const apiKey = String(process.env.HUME_API_KEY);
 
