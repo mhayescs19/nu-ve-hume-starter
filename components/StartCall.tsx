@@ -44,7 +44,7 @@ export default function StartCall() {
                     stroke={"currentColor"}
                   />
                 </span>
-                <span>Dr. Luna</span>
+                <span>Nu-Ve</span>
               </Button>
             </motion.div>
           </AnimatePresence>
