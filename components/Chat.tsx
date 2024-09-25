@@ -1,10 +1,50 @@
 "use client";
 
-import { VoiceProvider } from "@humeai/voice-react";
+import { VoiceProvider, ToolCallHandler } from "@humeai/voice-react";
 import Messages from "./Messages";
 import Controls from "./Controls";
 import StartCall from "./StartCall";
 import { ComponentRef, useRef } from "react";
+
+// function from Hume function next example: https://github.com/HumeAI/hume-api-examples/blob/main/evi-next-js-function-calling/app/components/ClientComponent.tsx
+const handleToolCall: ToolCallHandler = async (
+  message,
+  send,
+) => {
+  if (message.name === 'create_notification') {
+    try {
+      const response = await fetch('/api/createNotification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ parameters: message.parameters }),
+      });
+
+      const result = await response.json(); // result is just the message that evi is going to create
+
+      console.log(result);
+
+      if (result.success) {
+        return send.success(result.data);
+      } else {
+        return send.error(result.error);
+      }
+    } catch (error) {
+      return send.error({
+        error: 'Notification tool error',
+        code: 'create_notification_error',
+        level: 'warn',
+        content: 'There was an error with the create notification tool',
+      });
+    }
+  }
+
+  return send.error({
+    error: 'Tool not found',
+   code: 'tool_not_found',
+   level: 'warn',
+   content: 'The tool you requested was not found',
+ });
+};
 
 export default function ClientComponent({
   accessToken,
@@ -40,6 +80,7 @@ export default function ClientComponent({
           }, 200);
         }}
         configId={configId}
+        onToolCall={handleToolCall}
       >
         <Messages ref={ref} />
         <Controls />
