@@ -1,6 +1,6 @@
 import { HumeClient } from "hume";
 
-export const createNotificationTool = async () => {
+export const createNotificationTool = async (): Promise<string> => {
     const client  = new HumeClient({apiKey: process.env.HUME_API_KEY});
 
     const toolCount = await client.empathicVoice.tools.listTools();
@@ -15,6 +15,8 @@ export const createNotificationTool = async () => {
 
         if (currentTool.name === "create_notification") {
             toolExists = true;
+
+            return tool?.id;
         }
     });
 
@@ -33,18 +35,28 @@ export const createNotificationTool = async () => {
               },
               "message": {
                 "type": "string",
-                "description": "Create a summary of the users request. Include an action item or the action items in the reminder notification. Use a friendly tone and start with \"Hi, Nu-Ve here\""
+                "description": "Create a summary of the users request. Include an action item or the action items in the reminder notification. Use a friendly tone and start with: Hi, Nu-Ve here"
               }
             }
           }
     
         const parametersStringify = JSON.stringify(parameters);
     
-        await client.empathicVoice.tools.createTool({
+        const tool = await client.empathicVoice.tools.createTool({
             name: "create_notification",
             parameters: parametersStringify
         });
+
+        console.log(tool?.id);
+
+        if (tool === undefined) {
+            return "error";
+        } else {
+            return tool.id;
+        }
     }
+
+    return "error";
 }
 
 
