@@ -11,6 +11,16 @@ export const getEviConfig = async () => {
         body: JSON.stringify({
             name: "doctor-prompt",
             evi_version: "2",
+            "language_model": {
+                "model_provider": "ANTHROPIC",
+                "model_resource": "claude-3-haiku-20240307", // recommended model for tool use as EVI-2 is not supported when using tools
+                "temperature": 1
+            },
+            voice: {
+                provider: "HUME_AI",
+                name: "ITO"
+            },
+            // todo: add eLLM config
             prompt: {
                 text: "Assume of the role of an endocrinologist named Dr. Luna. You are giving advice on how to manage my weight. Please start by asking me a few questions about how I am doing with following the treatment plan that was given to me: 1) eat three well spread out meals, 2) walk in the mornings daily, 3) yoga at night."
             }
