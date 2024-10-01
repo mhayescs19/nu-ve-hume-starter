@@ -6,6 +6,15 @@ import { Button } from "./ui/button";
 import { Moon, Sun } from "lucide-react";
 import Github from "./logos/GitHub";
 import pkg from '@/package.json';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
 
 export const Nav = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -32,6 +41,16 @@ export const Nav = () => {
         "px-4 py-2 flex items-center h-14 z-50 bg-card border-b border-border"
       }
     >
+      <div>
+        <DropdownMenu>
+          <DropdownMenuTrigger>Hamburger</DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Profile</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       <div>
         <HumeLogo className={"h-5 w-auto"} />
       </div>
