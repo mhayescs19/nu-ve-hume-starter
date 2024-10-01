@@ -17,7 +17,7 @@ export default async function Page() {
   const configId = config.id; // extract id as it is only component of config that is relevant to the chat component
 
   
-
+  
   if (!accessToken) {
     throw new Error();
   }
