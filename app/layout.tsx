@@ -5,6 +5,14 @@ import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { cn } from "@/utils";
 
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton
+} from '@clerk/nextjs'
+
 export const metadata: Metadata = {
   title: "Nu-Ve",
   description: "Nu-Ve technical exploration from a Next.js starter using Hume AI's Empathic Voice Interface",
@@ -16,7 +24,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <ClerkProvider>
+      <html lang="en">
       <body
         className={cn(
           GeistSans.variable,
@@ -25,8 +34,16 @@ export default function RootLayout({
         )}
       >
         <Nav />
+        <SignedOut>
+            <SignInButton />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         {children}
       </body>
-    </html>
+    </html> 
+    </ClerkProvider>
+      
   );
 }

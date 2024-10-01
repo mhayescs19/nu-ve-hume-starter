@@ -1,5 +1,8 @@
 import { HumeClient } from "hume";
-
+/**
+ * Creates hume tool, does not attach to config
+ * @returns tool id
+ */
 export const createNotificationTool = async (): Promise<string> => {
     const client  = new HumeClient({apiKey: process.env.HUME_API_KEY});
 
