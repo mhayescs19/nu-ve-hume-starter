@@ -29,6 +29,7 @@ import {
   UserProfile
 } from '@clerk/nextjs'
 import NuVeLogo from "./NuVeLogo";
+import LandingVerticalDropdown from "./LandingVerticalDropdown";
 
 export const Nav = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -55,50 +56,7 @@ export const Nav = () => {
         "px-4 py-2 flex items-center h-14 z-50 bg-card border-b border-border"
       }
       >
-        
-          <DropdownMenu>
-          <DropdownMenuTrigger><Menu /></DropdownMenuTrigger>
-          <DropdownMenuContent>
-            {/*<DropdownMenuLabel className="font-normal">
-              <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">user name</p>
-                <p className="text-xs leading-none text-muted-foreground">
-                  me@nu-ve.com
-                </p>
-              </div>
-            </DropdownMenuLabel>*/}
-            <DropdownMenuItem>
-                <SignedOut>
-                  <SignInButton />
-                </SignedOut>
-                <SignedIn>
-                  <div className="pr-2">
-                    <UserButton showName>
-                      <UserProfile />
-                    </UserButton>
-                  </div>
-                </SignedIn>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>Support</DropdownMenuItem>
-            <DropdownMenuItem onClick={toggleDark}>
-                <span className="pr-2">{isDarkMode ? "Light" : "Dark"} Mode</span>
-                <span>
-                  {isDarkMode ? (
-                    <Sun className={"size-4"} />
-                  ) : (
-                    <Moon className={"size-4"} />
-                  )}
-                </span>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <SignOutButton />
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      
+        <LandingVerticalDropdown isDarkMode={isDarkMode} toggleDark={toggleDark} />
         <div className="pl-2">
           <NuVeLogo />
         </div>
