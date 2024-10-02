@@ -28,6 +28,7 @@ import {
   UserButton,
   UserProfile
 } from '@clerk/nextjs'
+import NuVeLogo from "./NuVeLogo";
 
 export const Nav = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -54,52 +55,53 @@ export const Nav = () => {
         "px-4 py-2 flex items-center h-14 z-50 bg-card border-b border-border"
       }
       >
-      <DropdownMenu>
-        <DropdownMenuTrigger><Menu /></DropdownMenuTrigger>
-        <DropdownMenuContent>
-          {/*<DropdownMenuLabel className="font-normal">
-            <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">user name</p>
-              <p className="text-xs leading-none text-muted-foreground">
-                me@nu-ve.com
-              </p>
-            </div>
-          </DropdownMenuLabel>*/}
-          <DropdownMenuItem>
-              <SignedOut>
-                <SignInButton />
-              </SignedOut>
-              <SignedIn>
-                <div className="pr-2">
-                  <UserButton />
-                </div>
+        
+          <DropdownMenu>
+          <DropdownMenuTrigger><Menu /></DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {/*<DropdownMenuLabel className="font-normal">
+              <div className="flex flex-col space-y-1">
+                <p className="text-sm font-medium leading-none">user name</p>
+                <p className="text-xs leading-none text-muted-foreground">
+                  me@nu-ve.com
+                </p>
+              </div>
+            </DropdownMenuLabel>*/}
+            <DropdownMenuItem>
+                <SignedOut>
+                  <SignInButton />
+                </SignedOut>
+                <SignedIn>
+                  <div className="pr-2">
+                    <UserButton showName>
+                      <UserProfile />
+                    </UserButton>
+                  </div>
+                </SignedIn>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Settings</DropdownMenuItem>
+            <DropdownMenuItem>Support</DropdownMenuItem>
+            <DropdownMenuItem onClick={toggleDark}>
+                <span className="pr-2">{isDarkMode ? "Light" : "Dark"} Mode</span>
                 <span>
-                  Profile
+                  {isDarkMode ? (
+                    <Sun className={"size-4"} />
+                  ) : (
+                    <Moon className={"size-4"} />
+                  )}
                 </span>
-              </SignedIn>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>Settings</DropdownMenuItem>
-          <DropdownMenuItem>Support</DropdownMenuItem>
-          <DropdownMenuItem onClick={toggleDark}>
-              <span className="pr-2">{isDarkMode ? "Light" : "Dark"} Mode</span>
-              <span>
-                {isDarkMode ? (
-                  <Sun className={"size-4"} />
-                ) : (
-                  <Moon className={"size-4"} />
-                )}
-              </span>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            <SignOutButton />
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-      <div>
-        <HumeLogo className={"pl-3 h-5 w-auto"} />
-      </div>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <SignOutButton />
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      
+        <div className="pl-2">
+          <NuVeLogo />
+        </div>
     </div> 
   );
 };
