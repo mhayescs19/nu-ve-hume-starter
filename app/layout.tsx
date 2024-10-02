@@ -34,16 +34,9 @@ export default function RootLayout({
         )}
       >
         <Nav />
-        <SignedOut>
-            <SignInButton />
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
         {children}
       </body>
     </html> 
     </ClerkProvider>
-      
   );
 }
