@@ -5,6 +5,7 @@ import Messages from "./Messages";
 import Controls from "./Controls";
 import StartCall from "./StartCall";
 import { ComponentRef, useRef } from "react";
+import { SignIn, SignedIn, SignedOut } from "@clerk/nextjs";
 
 // function from Hume function next example: https://github.com/HumeAI/hume-api-examples/blob/main/evi-next-js-function-calling/app/components/ClientComponent.tsx
 const handleToolCall: ToolCallHandler = async (
@@ -57,35 +58,47 @@ export default function ClientComponent({
   const ref = useRef<ComponentRef<typeof Messages> | null>(null);
   
   return (
-    <div className="relative grow flex flex-col mx-auto w-full overflow-hidden h-[0px] bg-gray-100">
-      {/*<div className="bg-gray-200 p-4 text-center font-semibold">
-        AI Assistant
-      </div>*/}
-      <VoiceProvider
-        auth={{ type: "accessToken", value: accessToken }}
-        onMessage={() => {
-          if (timeout.current) {
-            window.clearTimeout(timeout.current);
-          }
+      <div className="relative grow flex flex-col mx-auto w-full overflow-hidden h-[0px] bg-gray-100">
+        <SignedIn>
+          {/*<div className="bg-gray-200 p-4 text-center font-semibold">
+            AI Assistant
+          </div>*/}
+          <VoiceProvider
+            auth={{ type: "accessToken", value: accessToken }}
+            onMessage={() => {
+              if (timeout.current) {
+                window.clearTimeout(timeout.current);
+              }
 
-          timeout.current = window.setTimeout(() => {
-            if (ref.current) {
-              const scrollHeight = ref.current.scrollHeight;
+              timeout.current = window.setTimeout(() => {
+                if (ref.current) {
+                  const scrollHeight = ref.current.scrollHeight;
 
-              ref.current.scrollTo({
-                top: scrollHeight,
-                behavior: "smooth",
-              });
-            }
-          }, 200);
-        }}
-        configId={configId}
-        onToolCall={handleToolCall}
-      >
-        <Messages ref={ref} />
-        <Controls />
-        <StartCall />
-      </VoiceProvider>
+                  ref.current.scrollTo({
+                    top: scrollHeight,
+                    behavior: "smooth",
+                  });
+                }
+              }, 200);
+            }}
+            configId={configId}
+            onToolCall={handleToolCall}
+          >
+            <Messages ref={ref} />
+            <Controls />
+            <StartCall />
+          </VoiceProvider>
+        </SignedIn>
+        <div className="flex items-center justify-center pt-5">
+          <SignedOut>
+            <SignIn routing="hash">
+            </SignIn>
+          </SignedOut>
+        </div>
+        
     </div>
+    
+
+    
   );
 }

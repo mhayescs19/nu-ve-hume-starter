@@ -3,9 +3,33 @@
 import { useLayoutEffect, useState } from "react";
 import HumeLogo from "./logos/Hume";
 import { Button } from "./ui/button";
-import { Moon, Sun } from "lucide-react";
+import { Menu, Moon, Sun } from "lucide-react";
 import Github from "./logos/GitHub";
 import pkg from '@/package.json';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  SignOutButton,
+  UserButton,
+  UserProfile
+} from '@clerk/nextjs'
+import NuVeLogo from "./NuVeLogo";
+import LandingVerticalDropdown from "./LandingVerticalDropdown";
 
 export const Nav = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -27,46 +51,15 @@ export const Nav = () => {
   };
 
   return (
-    <div
+      <div
       className={
         "px-4 py-2 flex items-center h-14 z-50 bg-card border-b border-border"
       }
-    >
-      <div>
-        <HumeLogo className={"h-5 w-auto"} />
-      </div>
-      <div className={"ml-auto flex items-center gap-1"}>
-        <Button
-          onClick={() => {
-            window.open(
-              pkg.homepage,
-              "_blank",
-              "noopener noreferrer"
-            );
-          }}
-          variant={"ghost"}
-          className={"ml-auto flex items-center gap-1.5"}
-        >
-          <span>
-            <Github className={"size-4"} />
-          </span>
-          <span>Star on GitHub</span>
-        </Button>
-        <Button
-          onClick={toggleDark}
-          variant={"ghost"}
-          className={"ml-auto flex items-center gap-1.5"}
-        >
-          <span>
-            {isDarkMode ? (
-              <Sun className={"size-4"} />
-            ) : (
-              <Moon className={"size-4"} />
-            )}
-          </span>
-          <span>{isDarkMode ? "Light" : "Dark"} Mode</span>
-        </Button>
-      </div>
-    </div>
+      >
+        <LandingVerticalDropdown isDarkMode={isDarkMode} toggleDark={toggleDark} />
+        <div className="pl-2">
+          <NuVeLogo />
+        </div>
+    </div> 
   );
 };
