@@ -10,12 +10,7 @@ export const getEviConfig = async (toolId: string) => {
         },
         body: JSON.stringify({
             name: "doctor-prompt",
-            evi_version: "2",
-            "language_model": {
-                "model_provider": "ANTHROPIC",
-                "model_resource": "claude-3-haiku-20240307", 
-                "temperature": 1
-            },
+            evi_version: "1",
             voice: {
                 provider: "HUME_AI",
                 name: "ITO"
