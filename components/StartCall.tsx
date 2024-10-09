@@ -7,7 +7,7 @@ export default function StartCall() {
   const { status, connect } = useVoice();
 
   return (
-    <AnimatePresence>
+      <AnimatePresence>
       {status.value !== "connected" ? (
         <motion.div
           className={"fixed inset-0 p-4 flex items-center justify-center bg-background"}
@@ -31,10 +31,17 @@ export default function StartCall() {
               <Button
                 className={"z-50 flex items-center gap-1.5"}
                 onClick={() => {
+                  
                   connect()
-                    .then(() => {})
-                    .catch(() => {})
-                    .finally(() => {});
+                    .then(() => {
+                      console.log("clicked");
+                    })
+                    .catch((error) => {
+                      console.error("Connection error:", error);
+                    })
+                    .finally(() => {
+                      console.log("Connection attempt finished");
+                    });
                 }}
               >
                 <span>
@@ -51,5 +58,6 @@ export default function StartCall() {
         </motion.div>
       ) : null}
     </AnimatePresence>
+    
   );
 }

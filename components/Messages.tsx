@@ -1,7 +1,6 @@
 "use client";
 import { cn } from "@/utils";
 import { useVoice } from "@humeai/voice-react";
-import Expressions from "./Expressions";
 import { AnimatePresence, motion } from "framer-motion";
 import { ComponentRef, forwardRef } from "react";
 
@@ -27,6 +26,10 @@ const Messages = forwardRef<
               msg.type === "assistant_message"
             ) {
               const isUser = msg.type === "user_message";
+
+              // Extract the message content before the context
+              const messageContent = msg.message.content.split('{')[0].trim();
+
               return (
                 <motion.div
                   key={msg.type + index}
@@ -44,7 +47,7 @@ const Messages = forwardRef<
                       isUser ? "bg-blue-500 text-white" : "bg-white text-black"
                     )}
                   >
-                    <div className="text-sm">{msg.message.content}</div>
+                    <div className="text-sm">{messageContent}</div> {/* Display only the parsed message content */}
                   </div>
                   {/*<Expressions values={msg.models.prosody?.scores ?? {}} />*/}
                 </motion.div>
