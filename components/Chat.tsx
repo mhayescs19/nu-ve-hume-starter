@@ -22,6 +22,16 @@ export default function ClientComponent({
 
   const { user } = useUser();
 
+  // uses numOfHume uses to generate a prompt whether the use is using hume for the first time or a returning user
+  function generateContext(numOfHumeUses: Number, context: string, firstName: string) {
+    if (numOfHumeUses === 0) {
+      return `<Greeting>Welcome the user with a welcoming upbeat greeting. The user's name is ${firstName}. The user has logged in ${numOfHumeUses} times. If the user log ins is 0, you have not spoken with the user before, so add a message identifying yourself and expressing your pleasure speaking to the user for the first time. Otherwise, welcome the user back. Include the number of log ins only if it is an impressive number or you see fit<Greeting/>
+              <Role>${context}<Role/><Stay Succinct>Be succinct; get straight to the point. Respond directly to the user's most recent message with only one idea per utterance. Respond in less than three sentences of under twenty words each. If you ask the user a question, please only ask one question at a time.<Stay Succinct/>`
+    } else {
+      return context
+    }
+  }
+
   return (
       <div className="relative grow flex flex-col mx-auto w-full overflow-hidden h-[0px] bg-gray-100">
         <SignedIn>
@@ -47,10 +57,11 @@ export default function ClientComponent({
               context: {
                 text: (() => {
                   if (user) {
-                    const { prompt: {text} } = JSON.parse(JSON.stringify(user.publicMetadata, null, 2))
-                    return text;
+                    const { prompt: { text }, numOfHumeUses } = JSON.parse(JSON.stringify(user.publicMetadata, null, 2)) // parse hume metadata
+
+                    return generateContext(numOfHumeUses, text, user.firstName || "");
                   }
-                  return "i am a generic helper bot for zip launchpad"; // Default value if clerkMetadata is null; should not be reachable due to clerk auth
+                  return "i am a generic helper bot for zip launchpad"; // Default value if clerkMetadata is null; should not be reachable due to clerk log in required to access hume
                 })(),
                 type: "persistent"
               }
