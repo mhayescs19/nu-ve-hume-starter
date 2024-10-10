@@ -26,11 +26,11 @@ const LandingVerticalDropdown: React.FC<{ isDarkMode: boolean; toggleDark: () =>
           </SignedIn>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        {/*<DropdownMenuItem>
             <pre>{JSON.stringify(user?.publicMetadata, null, 2)}</pre>
         </DropdownMenuItem>
         <DropdownMenuItem>Settings</DropdownMenuItem>
-        <DropdownMenuItem>Support</DropdownMenuItem>
+        <DropdownMenuItem>Support</DropdownMenuItem>*/} {/* temporarily hide unimplemented menu items*/}
         <DropdownMenuItem onClick={toggleDark}>
           <span className="pr-2">{isDarkMode ? "Light" : "Dark"} Mode</span>
           <span>
